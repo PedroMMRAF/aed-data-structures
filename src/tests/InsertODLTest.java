@@ -11,7 +11,7 @@ public class InsertODLTest {
 
 	@Test
 	public void insertSimpleTest() {
-		OrderedDictionary<Integer, Integer> od = new OrderedDoubleList<Integer, Integer>();
+		OrderedDictionary<Integer, Integer> od = new OrderedDoubleList<>();
 
 		od.insert(5, 5); // insercao a cabeca
 		od.insert(10, 10); // insercao a cauda
@@ -26,27 +26,27 @@ public class InsertODLTest {
 		TwoWayIterator<Entry<Integer, Integer>> it = (TwoWayIterator<Entry<Integer, Integer>>) od.iterator();
 
 		assertTrue(it.hasNext());
-		assertTrue(it.next().getKey() == -3);
-		assertTrue(it.next().getKey() == 4);
-		assertTrue(it.next().getKey() == 5);
-		assertTrue(it.next().getKey() == 7);
-		assertTrue(it.next().getKey() == 9);
-		assertTrue(it.next().getKey() == 10);
+		assertEquals(-3, (int) it.next().getKey());
+		assertEquals(4, (int) it.next().getKey());
+		assertEquals(5, (int) it.next().getKey());
+		assertEquals(7, (int) it.next().getKey());
+		assertEquals(9, (int) it.next().getKey());
+		assertEquals(10, (int) it.next().getKey());
 
 		it.fullForward();
 		assertTrue(it.hasPrevious());
-		assertTrue(it.previous().getKey() == 10);
-		assertTrue(it.previous().getKey() == 9);
-		assertTrue(it.previous().getKey() == 7);
-		assertTrue(it.previous().getKey() == 5);
-		assertTrue(it.previous().getKey() == 4);
-		assertTrue(it.previous().getKey() == -3);
+		assertEquals(10, (int) it.previous().getKey());
+		assertEquals(9, (int) it.previous().getKey());
+		assertEquals(7, (int) it.previous().getKey());
+		assertEquals(5, (int) it.previous().getKey());
+		assertEquals(4, (int) it.previous().getKey());
+		assertEquals(-3, (int) it.previous().getKey());
 		assertFalse(it.hasPrevious());	
 	}
 	
 	@Test
 	public void insertinsertRandomTest() {
-		OrderedDictionary<Integer, Integer> od = new OrderedDoubleList<Integer, Integer>();
+		OrderedDictionary<Integer, Integer> od = new OrderedDoubleList<>();
 		
 		insertRandomElems(od, 100);
 		

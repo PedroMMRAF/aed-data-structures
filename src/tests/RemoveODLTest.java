@@ -10,9 +10,9 @@ public class RemoveODLTest {
 
 	@Test
 	public void removeSimpleTest() {
-		OrderedDictionary<Integer, Integer> od = new OrderedDoubleList<Integer, Integer>();
+		OrderedDictionary<Integer, Integer> od = new OrderedDoubleList<>();
 
-		assertEquals(od.remove(4),null);
+		assertNull(od.remove(4));
 		od.insert(5, 5);
 		od.insert(10, 10);
 		od.insert(-3, -3);
@@ -21,25 +21,25 @@ public class RemoveODLTest {
 		od.insert(7, 7);
 
 		assertEquals(od.size(),6);
-		
-		assertTrue(od.remove(19) == null);
-		assertTrue(od.remove(4) == 4); //remover no meio
-		assertTrue(od.remove(-3) == -3); //remover no inicio
-		assertTrue(od.remove(10) == 10); //remover no fim
+
+		assertNull(od.remove(19));
+		assertEquals(4, (int) od.remove(4)); //remover no meio
+		assertEquals(-3, (int) od.remove(-3)); //remover no inicio
+		assertEquals(10, (int) od.remove(10)); //remover no fim
 		
 		assertEquals(od.size(),3);
 
 		Iterator<Entry<Integer, Integer>> it = od.iterator();
 
 		assertTrue(it.hasNext());
-		assertTrue(it.next().getKey() == 5);
-		assertTrue(it.next().getKey() == 7);
-		assertTrue(it.next().getKey() == 9);	
-		
-		assertTrue(od.remove(5) == 5);
-		assertTrue(od.remove(9) == 9);
-		assertTrue(od.remove(7) == 7);
-		
-		assertTrue(od.remove(7) == null);
+		assertEquals(5, (int) it.next().getKey());
+		assertEquals(7, (int) it.next().getKey());
+		assertEquals(9, (int) it.next().getKey());
+
+		assertEquals(5, (int) od.remove(5));
+		assertEquals(9, (int) od.remove(9));
+		assertEquals(7, (int) od.remove(7));
+
+		assertNull(od.remove(7));
 	}
 }
