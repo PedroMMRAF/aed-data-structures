@@ -86,7 +86,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements OrderedDict
      * in the tree rooted at the specified node.
      * Requires: node != null.
      *
-     * @param node - node that roots the tree
+     * @param node node that roots the tree
      * @return node with the smallest key in the tree
      */
     protected BSTNode<K, V> minNode(BSTNode<K, V> node) {
@@ -125,7 +125,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements OrderedDict
      * Moreover, stores the last step of the path in lastStep.
      *
      * @param key      to be searched
-     * @param lastStep - PathStep object referring to parent
+     * @param lastStep PathStep object referring to parent
      * @return the found node, when the search is successful
      */
     protected BSTNode<K, V> findNode(K key, PathStep<K, V> lastStep) {
@@ -167,8 +167,8 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements OrderedDict
      * Links a new subtree, rooted at the specified node, to the tree.
      * The parent of the old subtree is stored in lastStep.
      *
-     * @param node     - root of the subtree
-     * @param lastStep - PathStep object referring to the parent of the old subtree
+     * @param node     root of the subtree
+     * @param lastStep PathStep object referring to the parent of the old subtree
      */
     protected void linkSubtree(BSTNode<K, V> node, PathStep<K, V> lastStep) {
         if (lastStep.parent == null)
@@ -188,8 +188,8 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements OrderedDict
      * Moreover, stores the last step of the path in lastStep.
      * Requires: theRoot != null.
      *
-     * @param theRoot  - node that roots the tree
-     * @param lastStep - PathStep object to refer to the parent of theRoot
+     * @param theRoot  node that roots the tree
+     * @param lastStep PathStep object to refer to the parent of theRoot
      * @return node containing the entry with the minimum key
      */
     protected BSTNode<K, V> minNode(BSTNode<K, V> theRoot, PathStep<K, V> lastStep) {
@@ -239,6 +239,52 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements OrderedDict
         return new BSTKeyOrderIterator<>(root);
     }
 
+    /**
+     * Checks if the set of keys of two ordered dictionaries is equal
+     * <br><br>
+     * Best case:  dictionaries have difering sizes, O(1)<br>
+     * Worst case: dictionaries have equal keys,     O(n)<br>
+     * Avg case:   dictionaries difer in some key,   O(n)
+     *
+     * @param other the other dictionary
+     * @return <code>true</code> if the dictionaries' keys match, <code>false</code> otherwise
+     */
+    public boolean equalKeys(OrderedDictionary<K, V> other) {
+        if (this.size() != other.size())
+            return false;
+
+        Iterator<Entry<K, V>> it1 = this.iterator();
+        Iterator<Entry<K, V>> it2 = other.iterator();
+
+        while (it1.hasNext())
+            if (it1.next().getKey() != it2.next().getKey())
+                return false;
+
+        return true;
+    }
+
+    /**
+     * Finds the nth entry of the tree inorder traversal
+     * <br><br>
+     * Best case:  entry is the first element, O(1)<br>
+     * Worst case: entry is the last element,  O(n)<br>
+     * Avg case:   entry is the mid element,   O(n)
+     *
+     * @param n the index of the entry
+     * @return the entry found
+     * @throws NoSuchEntryException if the provided index is out of range
+     */
+    public Entry<K, V> nthEntry(int n) throws NoSuchEntryException {
+        Iterator<Entry<K, V>> it = this.iterator();
+
+        if (n < 0 || n >= this.size())
+            throw new NoSuchEntryException();
+
+        while (--n >= 0)
+            it.next();
+
+        return it.next();
+    }
 
     /**
      * Inner class to store path steps
@@ -262,8 +308,8 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements OrderedDict
         /**
          * PathStep constructor
          *
-         * @param theParent - ancestor of the current node
-         * @param toTheLeft - will be true of the current node is the left child of theParent
+         * @param theParent ancestor of the current node
+         * @param toTheLeft will be true of the current node is the left child of theParent
          */
         public PathStep(BSTNode<K, V> theParent, boolean toTheLeft) {
             parent = theParent;
@@ -273,8 +319,8 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements OrderedDict
         /**
          * Method to set node parent before moving in the tree
          *
-         * @param newParent - ancestor of the current node
-         * @param toTheLeft - will be true of the current node is the left child of theParent
+         * @param newParent ancestor of the current node
+         * @param toTheLeft will be true of the current node is the left child of theParent
          */
         public void set(BSTNode<K, V> newParent, boolean toTheLeft) {
             parent = newParent;

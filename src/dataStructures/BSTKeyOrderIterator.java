@@ -1,5 +1,11 @@
 package dataStructures;
 
+/**
+ * Binary Search Tree Key Order Iterator implementation
+ *
+ * @param <K> generic type key
+ * @param <V> generic type value
+ */
 public class BSTKeyOrderIterator<K, V> implements Iterator<Entry<K, V>> {
     private final BSTNode<K, V> root;
     private BSTNode<K, V> current;
